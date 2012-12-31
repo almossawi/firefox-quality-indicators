@@ -1,0 +1,36 @@
+{
+	"prop_cost": {
+		"what": "<p>Propagation cost measures direct as well as indirect dependencies between the files in a code-base, which is a more vivid view of a system's interdependencies.  A number of studies have shown that propagation cost is a significant positive predictor of software quality.</p>",
+		"how": " <p>The process of transforming a first-order dependency matrix that captures only direct dependencies between files to a visibility matrix that captures indirect dependencies as well can be achieved through the mathematical process of matrix multiplication.  To obtain a visibility matrix, a matrix is raised to successive powers of n, where n represents path lengths.  Put differently, that means that if the matrix is raised to the power of two, it would then show the indirect dependencies between elements that have a path length of two, i.e. calls from A to C, if A calls B and B calls C. Thereafter, by summing these matrices together one gets the visibility matrix, V.  For this ripple effect to be useful for analysis, it is captured within a metric called propagation cost.</p><p>Propagation cost = (&Sigma;rows)/m<sup>2</sup>, where m is the matrix width/height.</p><p style='font-size:80%'>MacCormack, A. et al, <i>Exploring the Structure of Complex Software Designs: An Empirical Study of Open Source and Proprietary Code</i> (2006).</p>"
+	},
+	"mccabe": {
+		"what": "<p>Cyclomatic complexity, developed by Thomas McCabe in 1976, measures the number of linearly independent paths within a software system and can be applied either to the entire system or to a particular class or function. By viewing a block of code as a control graph, the nodes constitute indivisible lines of code that execute in sequence and the directed edges connect two nodes if one can occur after the other. So, for example, branching constructs like if-else statements would result in a node being connected to two output nodes, one for each branch.</p>",
+		"how": "<p>The formula for the measure is defined as: v(G) = e – n + 2p</p><p>Where v(G) is the cyclomatic number of a graph G, e is the number of edges, n is the number of nodes and p is the number of connected components, or exit nodes, in the graph. Visually, a block of code with a single if-else statement after the start of execution in it would look like the graph in diagram 2. Herein, e = 6, n = 6 and p = 1, so the cyclomatic complexity is then 6 – 6 + 2 * 1 = 2.  The additive nature of the metric means that the complexity of several graphs is equal to the sum of each graph.</p>"
+	},
+	"loc_code": {
+		"what": "<p>The number of lines-of-code per release.  There are various ways of calculating LOC; the key is to remain consistent between code-bases.  Here, LOC measures only executable lines, so it doesn't include comments and blanks.  We don't include unit tests in our set of analyzed files.</p>",
+		"how": "<p>LOC is calculated by our static analysis tool.</p><br /><p>Side note: Studies have shown that the measure tends to have an inverse relationship with defect density, that is to say, a larger system size has a smaller defect density, though other studies show it to be curvilinear relationship: defect density decreases linearly as system size increases only to then curve up at the tail.</p><p style='font-size:80%'><!--Almossawi, A., <i>An empirical study of defects and reopened defects in GNOME</i> (2012).-->Kahn, S.,  Metrics and Models in Software Quality Engineering (2002).</p>"
+	},
+	"percent_in_core": {
+		"what": "<p>Core files are files that depend on a lot of files and have a lot of files depend on them, i.e. they have high fan-in and high fan-out.  It is one of four types of files that one sees when plotting them along the axes of fan-in and fan-out, the intuition being that different directions and magnitudes of dependencies have varying impacts on software quality.  A smaller core has been shown to result in fewer defects.</p><ul><li>Peripheral files don’t depend on a lot of files and don't have a lot of files depend on them (low fan-in, low fan-out).</li><li>Shared files don’t depend on a lot of files, but have a lot of files depend on them (high fan-in, low fan-out).</li><li>Control files depend on a lot of files, but don’t have a lot of files depend on them (low fan-in, high fan-out).</li></ul>",
+		"how": "<p>The percentage of files that have a fan-in above the fan-in median and a fan-out above the fan-out median are divided by the total number files minus singletons, i.e. files that don't make any call-outs or call-ins gives us the core size.</p>"
+	},
+	"crashes": {
+		"what": "<p>The number of crash reports sent for each release of Firefox for Desktop that we have data for, from release day until seven weeks later.  Crashes usually converge to their maximum during this seven-week period.</p>",
+		"how": "<p>Crash data is public.  We simply get the raw counts for each release.  Minor releases that are within seven weeks of a major release are summed together.  Crash stats may be obtained from <a href='http://crash-stats.mozilla.com'>http://crash-stats.mozilla.com</a>.</p>"
+	},
+	"speed": {
+		"what": "The V8 score of each release.",
+		"how": "We run our speed tests on builds from mozilla-central.  The score for each release is based on the latest test that was done on the code in mozilla-central before it was branched off to its release-specific branch.  There is a gap of a number of weeks between that codebase and the codebase of the final release, hence it is important to keep this caveat in mind when interpreting the data.</p><p>The data is provided by the folks at <a href='https://arewefastyet.com'>arewefastyet.com</a>.</p>"
+	},
+	"mem": {
+		"what": "The resident memory usage of Firefox for Desktop after the TP5 test is left running for 30 seconds.  Resident memory is the physical amount of memory used by the Firefox process.  The TP5 test, run five times in sequence, loads a set of 100 popular webpages into the browser, with a ten-second delay between each page load.",
+		"how": "We run our memory usage tests on builds from mozilla-central.  The result for each release is based on the latest test that was done on the code in mozilla-central before it was branched off to its release-specific branch.  There is a gap of a number of weeks between that codebase and the codebase of the final release, hence it is important to keep this caveat in mind when interpreting the data.</p><p>The data is provided by John Schoenick and colleagues at <a href='https://areweslimyet.com'>areweslimyet.com</a>.  See their <a href='https://areweslimyet.com/faq.htm'>FAQ</a> for more info.</p>"
+	},
+	"defects_per_kloc": {
+		"what": "Defects per KLOC measures the number of confirmed bugs per release divided by the number of thousands of lines of code (not counting blanks and comments).  The bug data is from Bugzilla.",
+		"how": "A set of http queries are run against Mozilla's bug tracking system, Bugzilla, to get the counts per release.  Since the version field in Bugzilla is optional, the defect counts currently don't include confirmed bugs that have not been assigned to particular releases.  We have a relatively robust method for including unassigned defects that may end up using in the future."
+	}
+}
+
+
