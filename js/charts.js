@@ -174,7 +174,7 @@ function draw(data, container, format, humanify_numbers, custom_units, splice_fr
 					svg.append('rect')
 		    			.attr('shape-rendering', 'crispEdges')
 		    			.style('opacity', 0)
-			    		.attr('x', function() { return xScale(i); })
+			    		.attr('x', function() { return xScale(i)-10; })
     					.attr('y', 10)
 	    				.attr("class", "trans_rect")
 		    			.attr("display", function() {
@@ -191,7 +191,7 @@ function draw(data, container, format, humanify_numbers, custom_units, splice_fr
 							d3.selectAll(".tooltip").remove(); //timestamp is used as id
 							d3.select(which_metric + " svg")
 								.append("svg:rect")
-									.attr("width", 40)
+									.attr("width", 44)
 									.attr("height", 15)
 									.attr("x", xScale(i)-22)
 									.attr("y", yScale(d)-25)

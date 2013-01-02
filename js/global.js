@@ -60,6 +60,14 @@ function assignEventListeners() {
 		$(".modal").hide();
 	});
 	
+	document.onkeydown = function(evt) {
+    	evt = evt || window.event;
+	    if (evt.keyCode == 27) {
+    	    $(".dim").hide();
+			$(".modal").hide();
+    	}
+	};
+	
 	function chartContainerEnter(e) {
 		var moreinfo_button = $("#moreinfo_" + $(this).attr("id"));
 		
